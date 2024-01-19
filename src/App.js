@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from 'react'
+import AddTask from './AddTask'
+import ListTask from './ListTask'
+import { Container } from 'react-bootstrap'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+
+import './App.css'
+const App = () => {
+    const [tasks, setTasks] = useState([])
+
+    const addTask = (newTask) => {
+        setTasks([...tasks, newTask])
+        //console.log('task', { tasks }, newTask)
+    }
+    const removeTask = (index) => {
+        setTasks(tasks.filter((item, _index) => index != _index))
+    }
+
+    return (
+        <Container
+            className="p-3 mb-4 rounded-3"
+            style={{ backgroundColor: 'pink' }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <h1 className="header">Todo App</h1>
+
+                    <AddTask onAddTask={addTask} />
+
+                    <ListTask tasks={tasks} removeTask={removeTask} />
+
+
+        </Container>
+    )
 }
 
-export default App;
+export default App
